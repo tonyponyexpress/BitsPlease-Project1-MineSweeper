@@ -1,4 +1,3 @@
-
 from pygame import font, display, time, image
 from pygame.locals import Color
 from Minesweeper.Minefield import Minefield
@@ -10,35 +9,35 @@ import math
 class Minesweeper:
 	"""
 		Minesweeper class controls the execution of the game
-		
+
 		**Class Variables**:
 			*flagCounter*: Current number of flags remaining, initialized to number of mines
-			
+
 			*timeOfLastReset*: Time game started
-			
+
 			*minefield*: Minefield object, controls backend game execution
-			
+
 			*grid*: minefield.minefield, reference to grid of spaces
-			
-			*window*: Window object, handles onClick actions to determine which element was clicked 
-			
+
+			*window*: Window object, handles onClick actions to determine which element was clicked
+
 			*drawer*: Drawer object, utility for abstracting the drawing of buttons on the window
-			
+
 			*drawButton*: drawer.drawButton, reference to the drawButton function
-			
+
 			*game_element*: window._gameScreen, reference to surface in window, used for rendering display
-			
+
 			*reset_element*: window._reset, reference to surface in window, used for rendering display
-			
+
 			*timer_element*: window._timer, reference to surface in window, used for rendering display
-			
+
 			*flag_element*: window._flagCounter, reference to surface in window, used for rendering display
 
 			*reset_flag*: boolean, set when reset button is clicked
 
 			*img*: dictionary of images of squares in various states
 	"""
-	def __init__(self, x=9, y=9, mines=10):		
+	def __init__(self, x=9, y=9, mines=10):
 
 		self.flagCounter = mines
 		self.timeOfLastReset = time.get_ticks()
@@ -50,7 +49,7 @@ class Minesweeper:
 
 		self.drawer = Drawer()
 		self.drawButton = self.drawer.drawButton
-		
+
 		self.game_element = self.window._gameScreen
 		self.reset_element = self.window._reset
 		self.reset_flag = False
@@ -62,23 +61,23 @@ class Minesweeper:
 			'unrevealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace.png')).convert(),
 			'flagged': image.load(os.path.join(os.path.dirname(__file__), 'assets/flag.png')).convert_alpha(),
 			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha()
-		}	
-		
+		}
+
 	def onClick(self, event):
 		"""
 		Click event handler
-		
+
 		**Args**:
 				*event*: Event object, event.pos is the grid position, button is 1 for left, 3 for right mouse button
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				None.
-		
+
 		**Returns**:
-				*(gameOver, win)*: tuple of booleans, as named 
+				*(gameOver, win)*: tuple of booleans, as named
 		"""
 		# Semantic names for possible return values
 		WIN = (True, True)
@@ -90,7 +89,7 @@ class Minesweeper:
 		newEvent = self.window.onClick(event)
 
 		# Click was not on grid or reset button, return (False,False)
-		if newEvent is None: 
+		if newEvent is None:
 			return NOTHING
 		# Click was on reset button, returns (True, None)
 		if newEvent.button == -1:
@@ -127,23 +126,23 @@ class Minesweeper:
 	def render(self):
 		"""
 		Renders the minefield, reset button, flag counter, and timer
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				None.
-		
+
 		**Returns**:
 				None.
 		"""
 		for y in range(self.minefield.y_size):
 			for space in self.grid[y]:
 				self.renderSpace(space)
-		
+
 		self.renderReset()
 		self.updateClock()
 		self.updateFlags()
@@ -152,17 +151,17 @@ class Minesweeper:
 	def toggleFlag(self, x, y):
 		"""
 		Calls self.minefield.toggleFlag for space at (x,y) and adjusts flagCounter appropriately
-		
+
 		**Args**:
 				*x*: x coordinate of space to toggle flag
 				*y*: y coordinate of space to toggle flag
-		
+
 		**Preconditions**:
 				Space is not revealed, self.flagCounter > 0
-		
+
 		**Postconditions**:
 				space.isFlagged is toggled
-		
+
 		**Returns**:
 				None.
 		"""
@@ -173,16 +172,16 @@ class Minesweeper:
 	def renderSpace(self, space):
 		"""
 		Renders an individual space on the minefield
-		
+
 		**Args**:
 				*space*: Space object to be rendered
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				Space is rendered
-		
+
 		**Returns**:
 				None.
 		"""
@@ -211,16 +210,16 @@ class Minesweeper:
 	def getTime(self):
 		"""
 		Returns current clock time since start of game
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				None.
-		
+
 		**Returns**:
 				None.
 		"""
@@ -229,34 +228,34 @@ class Minesweeper:
 	def reset(self):
 		"""
 		Sets reset_flag to True
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				None.
-		
+
 		**Returns**:
 				None.
 		"""
 		self.reset_flag = True
-	
+
 	def renderReset(self):
 		"""
 		Renders the reset button
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				Reset button is rendered
-		
+
 		**Returns**:
 				None.
 		"""
@@ -273,37 +272,37 @@ class Minesweeper:
 	def updateClock(self):
 		"""
 		Updates the timer element
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				Timer element is rerendered
-		
+
 		**Returns**:
 				None.
 		"""
 		t_font = font.SysFont('lucidaconsole', 20)
 		text = t_font.render("Time : " + str(self.getTime()), False, (0,0,0))
 		self.timer_element.fill(Color('light grey'))
-		self.timer_element.blit(text, (0,0))	
+		self.timer_element.blit(text, (0,0))
 
 	def onLose(self):
 		"""
 		Reveals all mines after on is revealed
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				All mines are revealed and rendered
-		
+
 		**Returns**:
 				None.
 		"""
@@ -314,24 +313,24 @@ class Minesweeper:
 						self.toggleFlag(space.x_loc, space.y_loc)
 					space.isRevealed = True
 					self.renderSpace(space)
-					
+
 	def updateFlags(self):
 		"""
 		Updates flag counter element
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				Flag counter is rerendered
-		
+
 		**Returns**:
 				None.
 		"""
 		t_font = font.SysFont('lucidaconsole', 20)
 		text = t_font.render("Flags: " + str(self.flagCounter), False, (0,0,0))
 		self.flag_element.fill(Color('light grey'))
-		self.flag_element.blit(text, (0,0))	
+		self.flag_element.blit(text, (0,0))

@@ -1,18 +1,19 @@
 from Minesweeper.Space import Space
 import random
 
+
 class Minefield:
 	"""Minefield manages the internal game logic. The backend of the game board.
-	
+
 	Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.
-	
+
 	**Class Variables**:
 			*x_size*: Integer x size of board
 
 			*y_size*: Integer y size of board
 
 			*numMines*: Integer number of mines
-			
+
 			*minefield*: 2D array to track where the mines are located.
 	"""
 
@@ -40,16 +41,16 @@ class Minefield:
 
 	def setMines(self):
 		"""setMines randomly places the mines around the board.
-		
+
 		**Args**:
 				None.
 
 		**Preconditions**:
 				Spaces are created and stored.
-				
+
 		**Postconditions**:
 				isMine altered in numMines spaces
-				
+
 		**Returns**:
 				None."""
 
@@ -66,21 +67,21 @@ class Minefield:
 
 	def checkNeighbors(self, x, y):
 		"""Determines the number of mines that are directly around a certain space.
-				
+
 			**Args**:
 				*x*: the x coordinate of the space (start at 0)
-				
+
                                 *y*: the y coordinate of the space (start at 0)
-					
+
 			**Preconditions**:
 				The mines must already be placed in the grid, spaces must exist
 
 			**Postconditions**:
 				Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space.
-                                
+
                         **Return**:
                                 None."""
-		#Using the count variable to monitor the number of surrounding mines 
+		#Using the count variable to monitor the number of surrounding mines
 		count = 0
 		leftX = 0 if x == 0 else x-1
 		rightX = self.x_size-1 if x == self.x_size-1 else x+1
@@ -89,9 +90,9 @@ class Minefield:
 
 		checkCoordinates = [(xCoord, yCoord) for xCoord in range(leftX, rightX+1) for yCoord in range(leftY, rightY+1) if not (xCoord, yCoord) == (x,y)]
 		for gridPoint in checkCoordinates:
-			if (self.getSpace(gridPoint[0],gridPoint[1]).isMine): 
+			if (self.getSpace(gridPoint[0],gridPoint[1]).isMine):
 				count += 1
-		
+
 		self.getSpace(x, y).numOfSurroundingMines = count
 
 	def checkFlags(self):
@@ -120,12 +121,12 @@ class Minefield:
 		"""Determines whether or not to reveal a space.
 
 			Specifically, it reveals a space when it is clicked, as well as all empty spaces around the clicked space.
-			
+
                         It also reveals the board if a mine is clicked.
 
 			**Args**:
 					*x*: x-coordinate of the space (starts at 0)
-					
+
                                         *y*: y-coordinate of the space (starts at 0)
 
 			**Preconditions**:
@@ -138,7 +139,7 @@ class Minefield:
 					True if space is revealed, false otherwise
 		"""
 		thisSpace = self.getSpace(x, y)
-		
+
 		thisSpace.isRevealed = True
 		if thisSpace.isMine:
 			return True
@@ -150,6 +151,7 @@ class Minefield:
 						if (x_curr >= 0 and y_curr >= 0) and (x_curr < self.x_size and y_curr < self.y_size) and not (x_curr == x and y_curr == y):
 							if (not self.getSpace(x_curr, y_curr).isRevealed) and (not self.getSpace(x_curr, y_curr).isFlagged):
 								self.reveal(x_curr, y_curr)
+
 			return False
 
 	def toggleFlag(self, x, y):
@@ -193,4 +195,3 @@ class Minefield:
 								Returns the space at location x, y to the caller.
 		"""
 		return self.minefield[y][x]
-

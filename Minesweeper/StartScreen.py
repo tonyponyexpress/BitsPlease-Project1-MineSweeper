@@ -1,9 +1,14 @@
+import pygame
 from pygame import display, time, font, draw, init
 from pygame.locals import Rect, Color
 from Minesweeper.Graphics.Drawer import Drawer
+
+pygame.init()
+pygame.mixer.init()
+
 class StartScreen:
 	"""StartScreen manages user imput for the variables needed to make a minesweeper game, such as size and mine count
-	
+
 	**Class Variables**:
 		*min_size*: Integer The minimum board size to be allowed by the game
 
@@ -33,7 +38,7 @@ class StartScreen:
 
 		*drawer*: Drawer used to draw the buttons on the menu screen
 	"""
-	def __init__(self, x_size_init = 9, y_size_init = 9, numMines_init = 10):	
+	def __init__(self, x_size_init = 9, y_size_init = 9, numMines_init = 10):
 		init()
 
 		#limits on board size selections
@@ -48,14 +53,14 @@ class StartScreen:
 
 		#create a new display window of size (x, y)
 		self.window = display.set_mode((600, 500))
-		
-		self.window_margin = 20	
+
+		self.window_margin = 20
 
 		#define subsurfaces for rendering different menu components
 		self.sizeSurface = self.window.subsurface(Rect(self.window_margin, self.window_margin, self.window.get_width() / 2 - 1.5*self.window_margin - 1, self.window.get_height() - 2 * self.window_margin - 100))
 		self.mineSurface = self.window.subsurface(Rect((self.window.get_width() / 2) + .5*self.window_margin, self.window_margin, self.window.get_width() / 2 - 1.5*self.window_margin, self.window.get_height() - 2 * self.window_margin - 100))
 		self.startSurface = self.window.subsurface(Rect(self.window_margin, 400, self.window.get_width() - 2*self.window_margin, 100 - self.window_margin))
-		
+
 		#initialize colors of the surfaces
 		self.window.fill(Color('light grey'))
 		self.sizeSurface.fill(Color('dark grey'))
@@ -74,16 +79,16 @@ class StartScreen:
 	def render(self):
 		"""
 		Renders labels, buttons, and live counts of selected board size and mine count.
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				Menu elements will be drawn to StartScreen's surface
-		
+
 		**Returns**:
 				None.
 		"""
@@ -109,9 +114,9 @@ class StartScreen:
 		buttonLeft_x = self.sizeSurface.get_width() / 4 - sizeLabel.get_width() / 2
 		buttonLeft_y = 3 * self.sizeSurface.get_width() / 4 - sizeLabel.get_width() / 2
 		buttonLeft_mine = self.mineSurface.get_width() / 2 - mineLabel.get_width() / 2
-		
-		buttonTop = sizeLabel_x.get_height() + 80 
-		
+
+		buttonTop = sizeLabel_x.get_height() + 80
+
 		#seperate colors for the start button
 		startButtonColors = ( (0, 180, 0), (0, 156, 0) )
 		buttonSize_size = (sizeLabel_x.get_width(), 60)
@@ -144,7 +149,7 @@ class StartScreen:
 
 		#  Start Button
 		self.drawer.drawButton(self.startSurface, (0, 0), self.startSurface.get_size(), startButtonColors, "Start!", 30, self.start)
-		
+
 		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_x, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
 		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_y, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
 		draw.rect(self.mineSurface, Color('black'), (buttonLeft_mine, buttonTop + buttonHeight, buttonWidth_mine, buttonHeight))
@@ -165,23 +170,23 @@ class StartScreen:
 			(mineLabel, mineLabelPos),
 			(currMines, currMinesPos)
 		])
-		
+
 
 		display.flip()
 
 	def incWidth(self):
 		"""
 		Helper function to increment the selected width of the board
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				Current x_size must be a number
-		
+
 		**Postconditions**:
 				x_size will be less than or equal to the max x size specified
-		
+
 		**Returns**:
 				None.
 		"""
@@ -191,17 +196,17 @@ class StartScreen:
 	def decWidth(self):
 		"""
 		Helper function to decrement the selected width of the board
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				Current x_size must be a number
-		
+
 		**Postconditions**:
 				x_size will be greater than or equal to the minimum x size specified.
 				Also, the selected number of mines will be less than the area of the board.
-		
+
 		**Returns**:
 				None.
 		"""
@@ -213,16 +218,16 @@ class StartScreen:
 	def incHeight(self):
 		"""
 		Helper function to increment the selected height of the board
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				Current y_size must be a number
-		
+
 		**Postconditions**:
 				y_size will be less than or equal to the max y size specified
-		
+
 		**Returns**:
 				None.
 		"""
@@ -232,17 +237,17 @@ class StartScreen:
 	def decHeight(self):
 		"""
 		Helper function to decrement the selected height of the board
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				Current y_size must be a number
-		
+
 		**Postconditions**:
 				y_size will be greater than or equal to the minimum x size specified.
 				Also, the selected number of mines will be less than the area of the board.
-		
+
 		**Returns**:
 				None.
 		"""
@@ -254,35 +259,35 @@ class StartScreen:
 	def incMines(self):
 		"""
 		Helper function to increment the selected number of mines on the board
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				Current numMines must be a number
-		
+
 		**Postconditions**:
 				numMines will be less than the total number of spaces available on the board
-		
+
 		**Returns**:
 				None.
 		"""
 		if self.numMines < self.x_size * self.y_size - 1:
 			self.numMines += 1
-	
+
 	def decMines(self):
 		"""
 		Helper function to decrement the selected number of mines on the board
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				Current numMines must be a number
-		
+
 		**Postconditions**:
 				numMines will be at least 1
-		
+
 		**Returns**:
 				None.
 		"""
@@ -292,17 +297,19 @@ class StartScreen:
 	def start(self):
 		"""
 		Sets the gameReady flag to True. This is the signal for a top level class to move on to the game
-		
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None
-		
+
 		**Postconditions**:
 				gameReady will be True
-		
+
 		**Returns**:
 				None.
 		"""
+		startGame = pygame.mixer.Sound("sounds/gameStart.wav")
 		self.gameReady = True
+		startGame.play()
