@@ -21,3 +21,4 @@ class Space:
 		self.isRevealed = False
 		self.numOfSurroundingMines = 0
 		self.isCheatFlag = False
+		self.isCheatSpace = False

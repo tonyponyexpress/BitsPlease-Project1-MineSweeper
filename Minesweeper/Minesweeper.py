@@ -200,8 +200,16 @@ class Minesweeper:
 		space_x = space.x_loc*self.window.SPACE_PIXELS
 		space_y = space.y_loc*self.window.SPACE_PIXELS
 
+
 		if space.isCheatFlag:
 			self.game_element.blit(self.img['mine'], (space_x, space_y))
+		elif space.isCheatSpace:
+			#Draw Text
+			t_font = font.SysFont('lucidaconsole', 20)
+			text = t_font.render(str(space.numOfSurroundingMines), True, (0,0,0))
+			x_text_pos = (space_x) + (self.window.SPACE_PIXELS / 2) - (text.get_width() / 2)
+			y_text_pos = (space_y) + (self.window.SPACE_PIXELS / 2) - (text.get_height() / 2)
+			self.game_element.blit(text, (x_text_pos, y_text_pos))
 
 		#Draw revealed space background
 		elif space.isRevealed:
@@ -305,16 +313,15 @@ class Minesweeper:
 		self.drawButton(self.window._screen, (cheatMode_left, cheatMode_top), (cheatMode_x, cheatMode_y), ((128,128,128), (96,96,96)), cheatMode_text, cheatMode_fontsize, self.reset)
 
 	def cheatFlags(self):
-		# for row in self.grid:
-		# 	for space in row:
-		# 		if space.isMine:
-		# 			space.isCheatFlag = True
-		# 			self.renderSpace(space)
 		for row in self.grid:
 			for space in row:
 				if space.isMine:
 					space.isCheatFlag = True
 					self.renderSpace(space)
+				elif space.numOfSurroundingMines != 0:
+					space.isCheatSpace = True
+					self.renderSpace(space)
+
 
 	def undoCheatFlags(self):
 		for row in self.grid:
@@ -322,6 +329,10 @@ class Minesweeper:
 				if space.isMine:
 					space.isCheatFlag = False
 					self.renderSpace(space)
+				elif space.numOfSurroundingMines != 0:
+					space.isCheatSpace = False
+					self.renderSpace(space)
+
 
 
 ################################################################################################
