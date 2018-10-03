@@ -154,6 +154,8 @@ class Minefield:
 			return True
 		else:
 			if thisSpace.numOfSurroundingMines == 0:
+				blankSound = pygame.mixer.Sound("sounds/blankspace.wav")
+				blankSound.play()
 				x_range, y_range = range(x - 1, x + 2), range(y - 1, y + 2)
 				for y_curr in y_range:
 					for x_curr in x_range:
