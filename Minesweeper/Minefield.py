@@ -118,8 +118,10 @@ class Minefield:
 			for x in range(self.x_size):
 				if self.getSpace(x, y).isFlagged != self.getSpace(x,y).isMine:
 					isComplete = False
-		winGame = pygame.mixer.Sound("sounds/WINNER.wav")
-		winGame.play()
+		if isComplete:
+			pygame.mixer.stop();
+			winGame = pygame.mixer.Sound("sounds/WINNER.wav")
+			winGame.play()
 		return isComplete
 
 	def reveal(self, x, y):
@@ -179,6 +181,14 @@ class Minefield:
 								None.
 		"""
 		self.minefield[y][x].isFlagged = not self.getSpace(x, y).isFlagged
+		if (self.minefield[y][x].isFlagged and not(self.checkFlags())):
+						flagOn = pygame.mixer.Sound("sounds/flagon.wav")
+						flagOn.play()
+
+		else:
+			flagOff = pygame.mixer.Sound("sounds/flagoff.wav")
+			flagOff.play()
+
 		# if thisSpace.isFlagged == False:
 		# 	thisSpace.isFlagged = True
 		# else:
