@@ -1,4 +1,3 @@
-
 from pygame import font, display, time, image
 from pygame.locals import Color
 from Minesweeper.Minefield import Minefield
@@ -65,7 +64,7 @@ class Minesweeper:
 			'revealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace_revealed.png')).convert(),
 			'unrevealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace.png')).convert(),
 			'flagged': image.load(os.path.join(os.path.dirname(__file__), 'assets/flag.png')).convert_alpha(),
-			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha(),
+			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha()
 		}
 
 	def onClick(self, event):
