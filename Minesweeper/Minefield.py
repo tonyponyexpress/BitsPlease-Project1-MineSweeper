@@ -1,6 +1,9 @@
 from Minesweeper.Space import Space
 import random
+import pygame
 
+pygame.init()
+pygame.mixer.init()
 
 class Minefield:
 	"""Minefield manages the internal game logic. The backend of the game board.
@@ -115,6 +118,8 @@ class Minefield:
 			for x in range(self.x_size):
 				if self.getSpace(x, y).isFlagged != self.getSpace(x,y).isMine:
 					isComplete = False
+		winGame = pygame.mixer.Sound("sounds/WINNER.wav")
+		winGame.play()
 		return isComplete
 
 	def reveal(self, x, y):
@@ -142,6 +147,8 @@ class Minefield:
 
 		thisSpace.isRevealed = True
 		if thisSpace.isMine:
+			loseGame = pygame.mixer.Sound("sounds/mine.wav")
+			loseGame.play()
 			return True
 		else:
 			if thisSpace.numOfSurroundingMines == 0:
