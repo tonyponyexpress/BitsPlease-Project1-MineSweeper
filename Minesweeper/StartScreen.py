@@ -310,6 +310,7 @@ class StartScreen:
 		**Returns**:
 				None.
 		"""
+		pygame.mixer.stop()
 		startGame = pygame.mixer.Sound("sounds/gameStart.wav")
 		self.gameReady = True
 		startGame.play()

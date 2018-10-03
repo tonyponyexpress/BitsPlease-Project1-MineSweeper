@@ -149,6 +149,7 @@ class Minefield:
 
 		thisSpace.isRevealed = True
 		if thisSpace.isMine:
+			pygame.mixer.stop();
 			loseGame = pygame.mixer.Sound("sounds/mine.wav")
 			loseGame.play()
 			return True
@@ -184,10 +185,12 @@ class Minefield:
 		"""
 		self.minefield[y][x].isFlagged = not self.getSpace(x, y).isFlagged
 		if (self.minefield[y][x].isFlagged and not(self.checkFlags())):
+						pygame.mixer.stop();
 						flagOn = pygame.mixer.Sound("sounds/flagon.wav")
 						flagOn.play()
 
 		else:
+			pygame.mixer.stop();
 			flagOff = pygame.mixer.Sound("sounds/flagoff.wav")
 			flagOff.play()
 

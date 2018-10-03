@@ -5,6 +5,9 @@ from Minesweeper.Minefield import Minefield
 from Minesweeper.StartScreen import StartScreen
 from Minesweeper.EndScreen import EndScreen
 from Minesweeper.CheatMode import CheatMode
+import pygame
+pygame.init()
+pygame.mixer.init()
 
 def main():
 	"""
@@ -86,6 +89,9 @@ def main():
 							endScreen = EndScreen(win)
                     ###################################### new for cheat mode ######################################
 					elif win is None:
+						pygame.mixer.stop();
+						cheatGame = pygame.mixer.Sound("sounds/cheatmode.wav")
+						cheatGame.play()
 						minesweeper.cheatFlags()
 						cheatMode = CheatMode()
 						currentState = State.CheatMode
