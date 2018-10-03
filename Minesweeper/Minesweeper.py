@@ -5,6 +5,11 @@ from Minesweeper.Graphics.Window import Window
 from Minesweeper.Graphics.Drawer import Drawer
 import os
 import math
+import pygame
+
+pygame.init()
+pygame.mixer.init()
+
 
 class Minesweeper:
 	"""
@@ -99,6 +104,9 @@ class Minesweeper:
 		# Click was on reset button, returns (True, None)
 		if newEvent.button == -1:
 			self.reset_flag = True
+			pygame.mixer.stop()
+			resetSound = pygame.mixer.Sound("sounds/reset.wav")
+			resetSound.play()
 			return RESET
         ###################################### new for cheat mode ######################################
 		if newEvent.button == -2:
