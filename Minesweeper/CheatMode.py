@@ -26,11 +26,12 @@ class CheatMode:
 	"""
 
 	def __init__(self):
+		self.gameSurf = display.get_surface().copy()
 		self.drawWindow = display.get_surface()
 
-		backgroundColor = (31, 97, 141, 200)
-		title = SysFont('lucidaconsole', 25)
-		subtitle = SysFont('lucidaconsole', 15)
+		backgroundColor = (31, 97, 141, 150)
+		title = SysFont('lucidaconsole', 35)
+		subtitle = SysFont('lucidaconsole', 25)
 
         #distance between title and subtitle text
 		textMargin = 10
@@ -41,8 +42,9 @@ class CheatMode:
 		self.subtitleSurf = subtitle.render("Click to exit", True, Color('black'))
 
 		self.textBackgroundSurf = surface.Surface(
-			(self.subtitleSurf.get_width() + 2*textBackgroundMargin + 50,
-			self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin)
+			(self.subtitleSurf.get_width() + 2*textBackgroundMargin + 75,
+			self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin +25),
+			constants.SRCALPHA
 		)
 
 
@@ -64,6 +66,8 @@ class CheatMode:
 
 
 	def render(self):
+		self.drawWindow.blit(self.gameSurf, (0,0))
+
 		self.drawWindow.blits([
     		(self.textBackgroundSurf, self.textBackgroundPos),
 			(self.titleSurf, self.titlePos),
