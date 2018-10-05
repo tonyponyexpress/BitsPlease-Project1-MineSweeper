@@ -3,20 +3,18 @@ from pygame.font import SysFont
 from pygame.locals import Color
 
 class CheatMode:
-	"""CheatMode adds a blue screen on top while cheat mode is executed
+	"""CheatMode adds a blue semi transparent box on top of the grid while cheat mode is executed
 
 	**Class Variables**:
 		*gameSurf*: Surface A copy of the game screen to be used as a base for other transparent drawing
 
 		*drawWindow*: Surface The active game surface to draw to
 
-		*transparentSurf*: Surface A transparent surface to draw. Will be green on a win, and red on a loss.
+		*titleSurf*: Surface A rendering of more emphasized text, such as "Cheat mode"
 
-		*titleSurf*: Surface A rendering of more emphasized text, such as "You Won!"
+		*subtitleSurf*: Surface A rendering of less emphasized text, such as "Click to exit"
 
-		*subtitleSurf*: Surface A rendering of less emphasized text, such as "Click to play again..."
-
-		*textBackgroundSurf*: Surface A background to put behind the rendered text
+		*textBackgroundSurf*: Surface A box that holds the rendered text
 
 		*titlePos*: Tuple (Int, Int) Holds the (x,y) corrdinates of the title surface
 
@@ -47,7 +45,6 @@ class CheatMode:
 			constants.SRCALPHA
 		)
 
-
 		self.textBackgroundSurf.fill(backgroundColor)
 
 		self.titlePos = (
@@ -73,4 +70,5 @@ class CheatMode:
 			(self.titleSurf, self.titlePos),
     		(self.subtitleSurf, self.subtitlePos)
     	])
+		
 		display.flip()

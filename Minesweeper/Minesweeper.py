@@ -60,7 +60,6 @@ class Minesweeper:
 		self.reset_flag = False
 		self.timer_element = self.window._timer
 		self.flag_element = self.window._flagCounter
-
         ###################################### new for cheat mode ######################################
 		self.cheatMode_element = self.window._cheatMode
 
@@ -88,6 +87,7 @@ class Minesweeper:
 		**Returns**:
 				*(gameOver, win)*: tuple of booleans, as named
 		"""
+
 		# Semantic names for possible return values
 		WIN = (True, True)
 		LOSE = (True, False)
@@ -300,12 +300,6 @@ class Minesweeper:
 			reset_fontsize -= 1
 			t_font = font.SysFont('lucidaconsole', reset_fontsize)
 		self.drawButton(self.window._screen, (reset_left, reset_top), (reset_x, reset_y), ((128,128,128), (96,96,96)), reset_text, reset_fontsize, self.reset)
-
-		# print ('reset left: ', reset_left)
-		# print ('reset top: ', reset_top)
-		# print ('reset x: ', reset_x)
-		# print ('reset y: ', reset_y)
-		# print ('')
 
 
 ###################################### new for cheat mode ######################################

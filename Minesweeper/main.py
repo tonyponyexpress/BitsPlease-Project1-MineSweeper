@@ -15,7 +15,7 @@ def main():
 	of the game from start up to game ending.
 
 	**States**
-		There are four states that the game undergoes. The states and their interactions summarized:
+		There are five states that the game undergoes. The states and their interactions summarized:
 
 		*Start*: The default state when the game is first run. This state creates the StartScreen, which
 		asks players what board size they perfer and the number of mines on the board. This state will end
@@ -30,6 +30,10 @@ def main():
 		awaits whether or not the player quits the game with a state *Exit* or starts a new game with state *Start*.
 
 		*Exit*: This state exits out of the finite state machine and terminates the application.
+
+		*CheatMode*: This state runs when the player enters cheat mode. This state shows the location of the mines and the
+		number of the spaces with adjacent mines. When the user exits cheat mode it goes back to Minesweeper state
+
 
 	**Args**:
 			None.
@@ -49,11 +53,8 @@ def main():
 	startScreen = None
 	minesweeper = None
 	endScreen = None
-	###################################### new for cheat mode ######################################
 	cheatMode = None
-	################################################################################################
 	x,y,mines = 0, 0, 0
-
 
 	while currentState != State.Exit:
 		if (currentState == State.Start):

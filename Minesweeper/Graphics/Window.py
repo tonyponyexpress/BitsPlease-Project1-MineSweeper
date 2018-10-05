@@ -21,7 +21,7 @@ class Window:
 
 			*self.HEIGHT*: const, window height
 
-			*self.RESET_WIDTH*: const, width of reset button element
+			*self.BUTTON_WIDTH*: const, width of reset and cheat mode button element
 
 			*self.TIMER_WIDTH*: const, width of timer text
 
@@ -43,15 +43,15 @@ class Window:
 
 	"""
 	def __init__(self, x_dim, y_dim):
+
+		init()
+
+		# Dimensions Game Screen (grid)
 		self.x_dim = x_dim
 		self.y_dim = y_dim
-
-		self.SPACE_PIXELS = 32
 		self.MARGIN = 8
-
-
 		self.HEADER_BAR = 70
-
+		self.SPACE_PIXELS = 32
 
 		if (self.SPACE_PIXELS*self.x_dim + 2 * self.MARGIN) < 550 :
 			self.WIDTH = 550
@@ -59,13 +59,6 @@ class Window:
 			self.WIDTH = self.SPACE_PIXELS*self.x_dim + 2 * self.MARGIN
 
 		self.HEIGHT = self.SPACE_PIXELS*self.y_dim + 2 * self.MARGIN + self.HEADER_BAR
-		self.RESET_WIDTH = math.floor(self.WIDTH/3)
-		self.TIMER_WIDTH = 150
-		self.FLAG_COUNTER_HEIGHT = 20
-		self.FLAG_COUNTER_WIDTH = 150
-
-		init()
-
 		self._screen = display.set_mode((self.WIDTH, self.HEIGHT))
 		display.set_caption("BitSweeper")
 
@@ -74,26 +67,39 @@ class Window:
 		else :
 			self.GAME_SCREEN_LEFT = self.MARGIN
 
+		# Dimensions buttons
+		self.BUTTON_WIDTH = math.floor(self.WIDTH/3)
+
+		# Dimensions timer and flag counter
+		self.TIMER_WIDTH = 150
+		self.FLAG_COUNTER_HEIGHT = 20
+		self.FLAG_COUNTER_WIDTH = 150
+
+
+		# Game Screen (grid)
 		self._gameScreen = self._screen.subsurface(
 				Rect(self.GAME_SCREEN_LEFT, self.HEADER_BAR + self.MARGIN, self.SPACE_PIXELS*self.x_dim, self.SPACE_PIXELS*self.y_dim)
 			)
+
+		# Reset button
 		self._reset = self._screen.subsurface(
-				Rect(self.MARGIN, self.MARGIN, self.RESET_WIDTH, self.HEADER_BAR-self.MARGIN)
+				Rect(self.MARGIN, self.MARGIN, self.BUTTON_WIDTH, self.HEADER_BAR-self.MARGIN)
 			)
+
+		# Timer and flag counter
 		self._timer = self._screen.subsurface(
-				Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN, self.MARGIN, self.TIMER_WIDTH, self.FLAG_COUNTER_HEIGHT)
+				Rect(self.MARGIN + self.BUTTON_WIDTH + self.MARGIN, self.MARGIN, self.TIMER_WIDTH, self.FLAG_COUNTER_HEIGHT)
 			)
 		self._flagCounter = self._screen.subsurface(
-				Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN, self.MARGIN + self.FLAG_COUNTER_HEIGHT, self.FLAG_COUNTER_WIDTH, self.FLAG_COUNTER_HEIGHT)
+				Rect(self.MARGIN + self.BUTTON_WIDTH + self.MARGIN, self.MARGIN + self.FLAG_COUNTER_HEIGHT, self.FLAG_COUNTER_WIDTH, self.FLAG_COUNTER_HEIGHT)
 			)
 
 		self._screen.fill(Color('light grey'))
 
-        ###################################### new for cheat mode ######################################
+        # Cheat Mode button
 		self.CHEATMODE_WIDTH = math.floor(self.WIDTH/3)
-        # self.CHEATMODE_WIDTH = 150
 		self._cheatMode = self._screen.subsurface(
-				Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN + self.TIMER_WIDTH + self.MARGIN, self.MARGIN, self.CHEATMODE_WIDTH, self.HEADER_BAR-self.MARGIN)
+				Rect(self.MARGIN + self.BUTTON_WIDTH + self.MARGIN + self.TIMER_WIDTH + self.MARGIN, self.MARGIN, self.CHEATMODE_WIDTH, self.HEADER_BAR-self.MARGIN)
 			)
 
 		display.flip()
@@ -119,7 +125,7 @@ class Window:
 
 		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1):
 			# reset button
-			if (self.MARGIN<=x<self.RESET_WIDTH and self.MARGIN<=y<self.HEADER_BAR-self.MARGIN ):
+			if (self.MARGIN<=x<self.BUTTON_WIDTH and self.MARGIN<=y<self.HEADER_BAR-self.MARGIN ):
 				x_min,y_min = self._reset.get_abs_offset()
 				x_reset_size, y_reset_size = self._reset.get_size()
 				(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size)
