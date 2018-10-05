@@ -60,7 +60,6 @@ class Minesweeper:
 		self.reset_flag = False
 		self.timer_element = self.window._timer
 		self.flag_element = self.window._flagCounter
-        ###################################### new for cheat mode ######################################
 		self.cheatMode_element = self.window._cheatMode
 
 		#Images
@@ -306,11 +305,23 @@ class Minesweeper:
 		self.drawButton(self.window._screen, (reset_left, reset_top), (reset_x, reset_y), ((128,128,128), (96,96,96)), reset_text, reset_fontsize, self.reset)
 
 
-###################################### new for cheat mode ######################################
-	def cheatMode(self):
-		self.cheatMode_flag = True
-
+## Cheat Mode methods
 	def renderCheatMode(self):
+		"""
+		Renders the cheatMode button on top of the minefield
+
+		**Args**:
+				None.
+
+		**Preconditions**:
+				CheatMode is accessed
+
+		**Postconditions**:
+				cheatMode button is rendered
+
+		**Returns**:
+				None.
+		"""
 		cheatMode_text = 'Cheat mode'
 		(cheatMode_left, cheatMode_top) = self.cheatMode_element.get_abs_offset()
 		(cheatMode_x, cheatMode_y) = self.cheatMode_element.get_size()
@@ -319,6 +330,21 @@ class Minesweeper:
 		self.drawButton(self.window._screen, (cheatMode_left, cheatMode_top), (cheatMode_x, cheatMode_y), ((128,128,128), (96,96,96)), cheatMode_text, cheatMode_fontsize, self.reset)
 
 	def cheatFlags(self):
+		"""
+		Identifies the spaces with mines and surrounding mines and renders them by calling renderSpace
+
+		**Args**:
+				None.
+
+		**Preconditions**:
+				CheatMode is accessed
+
+		**Postconditions**:
+				mines and surrounding mines spaces are rendered
+
+		**Returns**:
+				None.
+		"""
 		for row in self.grid:
 			for space in row:
 				if space.isMine:
@@ -330,6 +356,22 @@ class Minesweeper:
 
 
 	def undoCheatFlags(self):
+		"""
+		Identifies the spaces with mines and surrounding mines changed by the Cheat Mode
+		and renders them to the original by calling renderSpace
+
+		**Args**:
+				None.
+
+		**Preconditions**:
+				CheatMode is exited
+
+		**Postconditions**:
+				mines and surrounding mines spaces are rendered back to the original
+
+		**Returns**:
+				None.
+		"""
 		for row in self.grid:
 			for space in row:
 				if space.isMine:
@@ -339,9 +381,7 @@ class Minesweeper:
 					space.isCheatSpace = False
 					self.renderSpace(space)
 
-
-
-################################################################################################
+### End of Cheat Mode methods
 
 	def updateClock(self):
 		"""

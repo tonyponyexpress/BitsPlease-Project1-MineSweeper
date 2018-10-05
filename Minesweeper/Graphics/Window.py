@@ -75,7 +75,6 @@ class Window:
 		self.FLAG_COUNTER_HEIGHT = 20
 		self.FLAG_COUNTER_WIDTH = 150
 
-
 		# Game Screen (grid)
 		self._gameScreen = self._screen.subsurface(
 				Rect(self.GAME_SCREEN_LEFT, self.HEADER_BAR + self.MARGIN, self.SPACE_PIXELS*self.x_dim, self.SPACE_PIXELS*self.y_dim)

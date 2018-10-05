@@ -57,6 +57,7 @@ def main():
 	x,y,mines = 0, 0, 0
 
 	while currentState != State.Exit:
+		# Start mode
 		if (currentState == State.Start):
 			if startScreen is None:
 				if minesweeper is None:
@@ -74,21 +75,25 @@ def main():
 				minesweeper = Minesweeper(x, y, mines)
 				startScreen = None
 
+		## Minesweeper game mode
 		elif currentState == State.Minesweeper:
 			for newEvent in event.get():
+				## Change to Exit Mode
 				if newEvent.type == constants.QUIT:
 					currentState = State.Exit
 				elif newEvent.type == constants.MOUSEBUTTONDOWN:
 					(end, win) = minesweeper.onClick(newEvent)
 					if end:
+						## Change to Start Mode
 						if win is None:
 							currentState = State.Start
+						## Change to End Mode
 						else:
 							currentState = State.End
 							if not win:
 								minesweeper.onLose()
 							endScreen = EndScreen(win)
-                    ###################################### new for cheat mode ######################################
+                    ## Change to Cheat Mode
 					elif win is None:
 						pygame.mixer.stop();
 						cheatGame = pygame.mixer.Sound("sounds/cheatmode.wav")
@@ -96,10 +101,10 @@ def main():
 						minesweeper.cheatFlags()
 						cheatMode = CheatMode()
 						currentState = State.CheatMode
-                    ################################################################################################
 			minesweeper.render()
 			clock.tick(60)
 
+		## End Mode
 		elif currentState == State.End:
 			endScreen.render()
 			clock.tick(60)
@@ -111,7 +116,7 @@ def main():
 					currentState = State.Start
 					endScreen = None
 
-        ###################################### new for cheat mode ######################################
+        ## Cheat Mode
 		elif currentState == State.CheatMode:
 			cheatMode.render()
 			for newEvent in event.get():
@@ -121,7 +126,6 @@ def main():
 					minesweeper.undoCheatFlags()
 					currentState = State.Minesweeper
 					cheatMode = None
-        ################################################################################################
 
 		else:
 			currentState = State.Start
