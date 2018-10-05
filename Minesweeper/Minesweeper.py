@@ -124,12 +124,16 @@ class Minesweeper:
 
 		# Reveal space if left-click
 		if event.button == 1:
-			# Make sure not to lose a flag by revealing without first removing the flag
-			if activeSpace.isFlagged :
-				self.toggleFlag(x,y)
-			# Reveal the space, return (activeSpace.isMine, false)
-			self.minefield.reveal(x,y)
-			return LOSE if activeSpace.isMine else NOTHING
+			# Doesn't allow click if the space is flagged
+			if activeSpace.isFlagged == False:
+				# Reveal the space, return (activeSpace.isMine, false)
+				self.minefield.reveal(x,y)
+				return LOSE if activeSpace.isMine else NOTHING
+			else:
+				pygame.mixer.stop();
+				nope = pygame.mixer.Sound("sounds/nope.wav")
+				nope.play()
+				return NOTHING
 
 		# Toggle flag on space if right-click
 		if event.button == 3:
