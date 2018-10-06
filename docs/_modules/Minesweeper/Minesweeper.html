@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -22,7 +23,7 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,15 +36,15 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
       </ul>
-    </div>  
+    </div>
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
-            
+
   <h1>Source code for Minesweeper.Minesweeper</h1><div class="highlight"><pre>
 <span></span>
 <span class="kn">from</span> <span class="nn">pygame</span> <span class="k">import</span> <span class="n">font</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">image</span>
@@ -53,6 +54,10 @@
 <span class="kn">from</span> <span class="nn">Minesweeper.Graphics.Drawer</span> <span class="k">import</span> <span class="n">Drawer</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">math</span>
+<span class="k">import</span> <span class="n">pygame</span>
+
+<span class="n">pygame</span> <span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">pygame</span> <span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Minesweeper"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper">[docs]</a><span class="k">class</span> <span class="nc">Minesweeper</span><span class="p">:</span>
 	<span class="sd">&quot;&quot;&quot;</span>
@@ -85,7 +90,7 @@
 
 <span class="sd">			*img*: dictionary of images of squares in various states</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">mines</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>		
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">mines</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">flagCounter</span> <span class="o">=</span> <span class="n">mines</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">timeOfLastReset</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">get_ticks</span><span class="p">()</span>
@@ -97,7 +102,7 @@
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span> <span class="o">=</span> <span class="n">Drawer</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawButton</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span>
-		
+
 		<span class="bp">self</span><span class="o">.</span><span class="n">game_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_gameScreen</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">reset_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_reset</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">reset_flag</span> <span class="o">=</span> <span class="kc">False</span>
@@ -109,8 +114,8 @@
 			<span class="s1">&#39;unrevealed&#39;</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Minesweeper/assets/gridSpace.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(),</span>
 			<span class="s1">&#39;flagged&#39;</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Minesweeper/assets/flag.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span>
 			<span class="s1">&#39;mine&#39;</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Minesweeper/assets/mine.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-		<span class="p">}</span>	
-		
+		<span class="p">}</span>
+
 <div class="viewcode-block" id="Minesweeper.onClick"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.onClick">[docs]</a>	<span class="k">def</span> <span class="nf">onClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Click event handler</span>
@@ -137,7 +142,7 @@
 		<span class="n">newEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">onClick</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
 		<span class="c1"># Click was not on grid or reset button, return (False,False)</span>
-		<span class="k">if</span> <span class="n">newEvent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> 
+		<span class="k">if</span> <span class="n">newEvent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">return</span> <span class="n">NOTHING</span>
 		<span class="c1"># Click was on reset button, returns (True, None)</span>
 		<span class="k">if</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -154,14 +159,17 @@
 
 		<span class="c1"># Reveal space if left-click</span>
 		<span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-			<span class="c1"># Make sure not to lose a flag by revealing without first removing the flag</span>
-			<span class="k">if</span> <span class="n">activeSpace</span><span class="o">.</span><span class="n">isFlagged</span> <span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">toggleFlag</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-			<span class="c1"># Reveal the space, return (activeSpace.isMine, false)</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">minefield</span><span class="o">.</span><span class="n">reveal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-			<span class="k">return</span> <span class="n">LOSE</span> <span class="k">if</span> <span class="n">activeSpace</span><span class="o">.</span><span class="n">isMine</span> <span class="k">else</span> <span class="n">NOTHING</span>
-
-		<span class="c1"># Toggle flag on space if right-click</span>
+			<span class="c1"># Doesn't allow click if the space is flagged</span>
+			<span class="k">if</span> <span class="n">activeSpace</span><span class="o">.</span><span class="n">isFlagged</span> <span class="o">==</span><span class="n">False</span><span class="p">:</span>
+				<span class="c1"># Reveal the space, return (activeSpace.isMine, false)</span>
+			        <span class="bp">self</span><span class="o">.</span><span class="n">minefield</span><span class="o">.</span><span class="n">reveal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+			        <span class="k">return</span> <span class="n">LOSE</span> <span class="k">if</span> <span class="n">activeSpace</span><span class="o">.</span><span class="n">isMine</span> <span class="k">else</span> <span class="n">NOTHING</span>
+                        <span class="k">else</span><span class="p">:</span>
+                                <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                                <span class="n">nope</span><span class="o">=</span><span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">Sound</span><span class="p">(</span><span class="a">"sounds/nope.wav"</span><span class="p">)</span>
+                                <span class="n">nope</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+                                <span class="k">return</span> <span class="n">NOTHING</span>
+        	<span class="c1"># Toggle flag on space if right-click</span>
 		<span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
 			<span class="c1"># If out of flags and trying to add another, do nothing, return (False, False)</span>
 			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flagCounter</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">activeSpace</span><span class="o">.</span><span class="n">isFlagged</span><span class="p">:</span>
@@ -190,7 +198,7 @@
 		<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minefield</span><span class="o">.</span><span class="n">y_size</span><span class="p">):</span>
 			<span class="k">for</span> <span class="n">space</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">y</span><span class="p">]:</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
-		
+
 		<span class="bp">self</span><span class="o">.</span><span class="n">renderReset</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">updateClock</span><span class="p">()</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">updateFlags</span><span class="p">()</span>
@@ -241,7 +249,8 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">game_element</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="s1">&#39;revealed&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">space_x</span><span class="p">,</span> <span class="n">space_y</span><span class="p">))</span>
 			<span class="c1">#Draw either a mine, or text ontop of background</span>
 			<span class="k">if</span> <span class="n">space</span><span class="o">.</span><span class="n">isMine</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">game_element</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="s1">&#39;mine&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">space_x</span><span class="p">,</span> <span class="n">space_y</span><span class="p">))</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">reset_element</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="s1">&#39;sad&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">0</span><span class="p">,</span> <span class="n">4</span><span class="p">))</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">game_element</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="s1">&#39;mine&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">space_x</span><span class="p">,</span> <span class="n">space_y</span><span class="p">))</span>
 			<span class="k">elif</span> <span class="n">space</span><span class="o">.</span><span class="n">numOfSurroundingMines</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
 				<span class="c1">#Draw Text</span>
 				<span class="n">t_font</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s1">&#39;lucidaconsole&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
@@ -254,6 +263,9 @@
 			<span class="c1">#Draw a flag if the space is flagged</span>
 			<span class="k">if</span> <span class="n">space</span><span class="o">.</span><span class="n">isFlagged</span><span class="p">:</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">game_element</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="s1">&#39;flagged&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">space_x</span><span class="p">,</span> <span class="n">space_y</span><span class="p">))</span></div>
+
+
+
 
 <div class="viewcode-block" id="Minesweeper.getTime"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.getTime">[docs]</a>	<span class="k">def</span> <span class="nf">getTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
@@ -290,7 +302,7 @@
 <span class="sd">				None.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">reset_flag</span> <span class="o">=</span> <span class="kc">True</span></div>
-	
+
 <div class="viewcode-block" id="Minesweeper.renderReset"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderReset">[docs]</a>	<span class="k">def</span> <span class="nf">renderReset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Renders the reset button</span>
@@ -316,6 +328,82 @@
 			<span class="n">reset_fontsize</span> <span class="o">-=</span> <span class="mi">1</span>
 			<span class="n">t_font</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s1">&#39;lucidaconsole&#39;</span><span class="p">,</span> <span class="n">reset_fontsize</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_screen</span><span class="p">,</span> <span class="p">(</span><span class="n">reset_left</span><span class="p">,</span> <span class="n">reset_top</span><span class="p">),</span> <span class="p">(</span><span class="n">reset_x</span><span class="p">,</span> <span class="n">reset_y</span><span class="p">),</span> <span class="p">((</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">),</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">)),</span> <span class="n">reset_text</span><span class="p">,</span> <span class="n">reset_fontsize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Minesweeper.renderSpace"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderSpace">[docs]</a>	<span class="k">def</span> <span class="nf">renderCheatMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Renders the cheatMode button on top of the minefield</span>
+<span class="sd">		</span>
+<span class="sd">		**Args**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		</span>
+<span class="sd">		**Preconditions**:</span>
+<span class="sd">				CheatMode is accessed</span>
+<span class="sd">		</span>
+<span class="sd">		**Postconditions**:</span>
+<span class="sd">				cheatMode button is rendered</span>
+<span class="sd">		</span>
+<span class="sd">		**Returns**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">cheatMode_text</span> <span class="o">=</span> <span class="s1">&#39;Cheat Mode&#39;</span>
+                <span class="p">(</span><span class="n">cheatMode_left</span><span class="p">,</span> <span class="n">cheatMode_top</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cheatMode_element</span><span class="o">.</span><span class="n">get_abs_offset</span><span class="p">()</span>
+                <span class="p">(</span><span class="n">cheatMode_x</span><span class="p">,</span> <span class="n">cheatMode_y</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cheatMode_element</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+                <span class="n">cheatMode_fontsize</span> <span class="o">=</span> <span class="mi">20</span>
+                <span class="n">cheatMode_font</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s1">&#39;lucidaconsole&#39;</span><span class="p">,</span> <span class="n">cheatMode_fontsize</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_screen</span><span class="p">,</span> <span class="p">(</span><span class="n">cheatMode_left</span><span class="p">,</span> <span class="n">cheatMode_top</span><span class="p">),</span> <span class="p">(</span><span class="n">cheatMode_x</span><span class="p">,</span> <span class="n">cheatMode_y</span><span class="p">),</span> <span class="p">((</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">),</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">)),</span> <span class="n">cheatMode_text</span><span class="p">,</span> <span class="n">cheatMode_fontsize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Minesweeper.renderSpace"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderSpace">[docs]</a>	<span class="k">def</span> <span class="nf">cheatFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Identifies the spaces with mines and surrounding mines and renders them by calling renderSpace</span>
+<span class="sd">		</span>
+<span class="sd">		**Args**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		</span>
+<span class="sd">		**Preconditions**:</span>
+<span class="sd">				CheatMode is accessed</span>
+<span class="sd">		</span>
+<span class="sd">		**Postconditions**:</span>
+<span class="sd">				mines and surrounding mines spaces are rendered</span>
+<span class="sd">		</span>
+<span class="sd">		**Returns**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">self</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">space</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">space</span><span class="o">.</span><span class="n">isMine</span><span class="p">:</span>
+                                        <span class="bp">space</span><span class="o">.</span><span class="n">isCheatFlag</span><span class="o">=</span><span class="n">True</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+                                <span class="k">elif</span> <span class="n">space</span><span class="o">.</span><span class="n">numOfSurroundingMines</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="bp">space</span><span class="o">.</span><span class="n">isCheatFlag</span><span class="o">=</span><span class="n">True</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Minesweeper.renderSpace"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderSpace">[docs]</a>	<span class="k">def</span> <span class="nf">cheatFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Identifies the spaces with mines and surrounding mines changed by the Cheat Mode</span>
+<span class="sd">		and renders them to the original by calling renderSpace</span>
+<span class="sd">		</span>
+<span class="sd">		**Args**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		</span>
+<span class="sd">		**Preconditions**:</span>
+<span class="sd">				CheatMode is exited</span>
+<span class="sd">		</span>
+<span class="sd">		**Postconditions**:</span>
+<span class="sd">				mines and surrounding mines spaces are rendered back to the original</span>
+<span class="sd">		</span>
+<span class="sd">		**Returns**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">self</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">space</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">space</span><span class="o">.</span><span class="n">isMine</span><span class="p">:</span>
+                                        <span class="bp">space</span><span class="o">.</span><span class="n">isCheatFlag</span><span class="o">=</span><span class="n">False</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+                                <span class="k">elif</span> <span class="n">space</span><span class="o">.</span><span class="n">numOfSurroundingMines</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="bp">space</span><span class="o">.</span><span class="n">isCheatFlag</span><span class="o">=</span><span class="n">False</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Minesweeper.updateClock"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.updateClock">[docs]</a>	<span class="k">def</span> <span class="nf">updateClock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
@@ -361,7 +449,7 @@
 						<span class="bp">self</span><span class="o">.</span><span class="n">toggleFlag</span><span class="p">(</span><span class="n">space</span><span class="o">.</span><span class="n">x_loc</span><span class="p">,</span> <span class="n">space</span><span class="o">.</span><span class="n">y_loc</span><span class="p">)</span>
 					<span class="n">space</span><span class="o">.</span><span class="n">isRevealed</span> <span class="o">=</span> <span class="kc">True</span>
 					<span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span></div>
-					
+
 <div class="viewcode-block" id="Minesweeper.updateFlags"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.updateFlags">[docs]</a>	<span class="k">def</span> <span class="nf">updateFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Updates flag counter element</span>
@@ -413,7 +501,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
