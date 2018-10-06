@@ -62,6 +62,77 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+
+
+
+
+
+
+
+
+
+<!-- CheatMode module -->
+<div class="section" id="module-Minesweeper.CheatMode">
+<span id="minesweeper-endscreen-module"></span><h2>Minesweeper.CheatMode module<a class="headerlink" href="#module-Minesweeper.CheatMode" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Minesweeper.CheatMode.CheatMode">
+<em class="property">class </em><code class="descclassname">Minesweeper.CheatMode.</code><code class="descname">CheatMode</code><span class="sig-paren">()</span><a class="reference internal" href="_modules/Minesweeper/EndScreen.html#EndScreen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.EndScreen.EndScreen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>CheatMode adds a blue semi transparent box on top of the grid while cheat mode is executed.</p>
+
+<dl class="docutils">
+    <dt><strong>Class Variables</strong>:</dt>
+    <dd><p class="first"><em>gameSurf</em>: Surface A copy of the game screen to be used as a base for other transparent drawing</p>
+    <p><em>drawWindow</em>: Surface The active game surface to draw to</p>
+    <p><em>titleSurf</em>: Surface A rendering of more emphasized text, such as "Cheat mode" </p>
+    <p><em>subtitleSurf</em>: Surface A rendering of less emphasized text, such as "Click to exit" </p>
+    <p><em>textBackgroundSurf</em>: Surface A box that holds the rendered text</p>
+    <p><em>titlePos</em>: Tuple (Int, Int) Holds the (x,y) corrdinates of the title surface</p>
+    <p><em>subtitlePos</em>: Tuple (Int, Int) Holds the (x,y) coordinates of the subtitle surface</p>
+    <p class="last"><em>textBackgroundPos</em>: Tuple (Int, Int) Holds the (x,y) coordinates of the text’s background</p>
+    </dd>
+</dl>
+
+<dl class="method">
+    <dt id="Minesweeper.CheatMode.CheatMode.render">
+    <code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/CheatMode.html#CheatMode.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.EndScreen.EndScreen.render" title="Permalink to this definition">¶</a></dt>
+    <dd><p>Renders the cheat mode screen. This includes a transparent button with text</p>
+    <dl class="docutils">
+    <dt><strong>Args</strong>:</dt>
+    <dd>None.</dd>
+    <dt><strong>Preconditions</strong>:</dt>
+    <dd>None.</dd>
+    <dt><strong>Postconditions</strong>:</dt>
+    <dd>CheatMode's contents will be rendered to the main pygame display surface.</dd>
+    <dt><strong>Returns</strong>:</dt>
+    <dd>None.</dd>
+</dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- EndScreen module -->
 <div class="section" id="module-Minesweeper.EndScreen">
 <span id="minesweeper-endscreen-module"></span><h2>Minesweeper.EndScreen module<a class="headerlink" href="#module-Minesweeper.EndScreen" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -102,6 +173,8 @@ The win state is passed in at construction time via the gameWon boolean paramete
 </dd></dl>
 
 </div>
+
+<!-- Minefield module -->
 <div class="section" id="module-Minesweeper.Minefield">
 <span id="minesweeper-minefield-module"></span><h2>Minesweeper.Minefield module<a class="headerlink" href="#module-Minesweeper.Minefield" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -227,6 +300,9 @@ The win state is passed in at construction time via the gameWon boolean paramete
 </dd></dl>
 
 </div>
+
+
+<!-- Minesweeper module -->
 <div class="section" id="module-Minesweeper.Minesweeper">
 <span id="minesweeper-minesweeper-module"></span><h2>Minesweeper.Minesweeper module<a class="headerlink" href="#module-Minesweeper.Minesweeper" title="Permalink to this headline">¶</a></h2>
 <dl class="class">

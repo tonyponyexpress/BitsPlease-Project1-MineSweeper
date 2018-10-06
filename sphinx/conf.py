@@ -49,8 +49,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Minesweeper'
-copyright = '2018, Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman'
-author = 'Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman'
+copyright = '2018, Project #1: Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman. Project #2 Ian Farris, Thor Lyche, Tony Nguyen, Rob Nickel, Emilia Paz  '
+author = 'Project #1: Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman. Project #2 Ian Farris, Thor Lyche, Tony Nguyen, Rob Nickel, Emilia Paz   : '
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

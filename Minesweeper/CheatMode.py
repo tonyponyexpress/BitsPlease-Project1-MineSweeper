@@ -63,6 +63,21 @@ class CheatMode:
 
 
 	def render(self):
+		"""
+		Renders the cheat mode screen. This includes a transparent button with text
+
+		**Args**:
+				None.
+
+		**Preconditions**:
+				None.
+
+		**Postconditions**:
+				CheatMode's contents will be rendered to the main pygame display surface.
+
+		**Returns**:
+				None.
+		"""
 		self.drawWindow.blit(self.gameSurf, (0,0))
 
 		self.drawWindow.blits([
@@ -70,5 +85,5 @@ class CheatMode:
 			(self.titleSurf, self.titlePos),
     		(self.subtitleSurf, self.subtitlePos)
     	])
-		
+
 		display.flip()
