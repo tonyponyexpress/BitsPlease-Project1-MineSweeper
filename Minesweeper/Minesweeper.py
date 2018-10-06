@@ -67,7 +67,10 @@ class Minesweeper:
 			'revealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace_revealed.png')).convert(),
 			'unrevealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace.png')).convert(),
 			'flagged': image.load(os.path.join(os.path.dirname(__file__), 'assets/flag.png')).convert_alpha(),
-			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha()
+			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha(),
+			'happy': image.load(os.path.join(os.path.dirname(__file__), 'assets/happy.png')).convert_alpha(),
+			'neutral': image.load(os.path.join(os.path.dirname(__file__), 'assets/neutral.png')).convert_alpha(),
+			'sad': image.load(os.path.join(os.path.dirname(__file__), 'assets/sad.png')).convert_alpha()
 		}
 
 	def onClick(self, event):
@@ -142,7 +145,11 @@ class Minesweeper:
 			# toggle flag on space at (x,y)
 			self.toggleFlag(x,y)
 			# If flag was placed, check if all flags are correct: if they are, return (True, True); else, return (False, False)
-			return WIN if activeSpace.isFlagged and self.minefield.checkFlags() else NOTHING
+			if activeSpace.isFlagged and self.minefield.checkFlags():
+				self.reset_element.blit(self.img['happy'], (0,4))
+				return WIN
+			else:
+				return NOTHING
 
 	def render(self):
 		"""
@@ -227,6 +234,7 @@ class Minesweeper:
 			self.game_element.blit(self.img['revealed'], (space_x, space_y))
 			#Draw either a mine, or text ontop of background
 			if space.isMine:
+				self.reset_element.blit(self.img['sad'], (0,4))
 				self.game_element.blit(self.img['mine'], (space_x, space_y))
 			elif space.numOfSurroundingMines != 0:
 				#Draw Text
@@ -303,6 +311,12 @@ class Minesweeper:
 			reset_fontsize -= 1
 			t_font = font.SysFont('lucidaconsole', reset_fontsize)
 		self.drawButton(self.window._screen, (reset_left, reset_top), (reset_x, reset_y), ((128,128,128), (96,96,96)), reset_text, reset_fontsize, self.reset)
+		self.reset_element.blit(self.img['neutral'], (0,4))
+#
+# ## NEW FOR RENDER IMAGE
+# 	def renderFace(self):
+#
+# ########################
 
 
 ## Cheat Mode methods
