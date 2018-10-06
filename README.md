@@ -8,7 +8,7 @@
         BitsPlease-Project1-MineSweeper <https://github.com/zatkins-school/BitsPlease-Project1-MineSweeper>
 
 ## Documentation
-        See [Github Pages]<https://zatkins-school.github.io/BitsPlease-Project1-MineSweeper/>
+        See 448 Project 2 Documentation PDF located in our docs folder
 
 
 
