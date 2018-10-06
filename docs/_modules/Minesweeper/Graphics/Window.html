@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,15 +35,15 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
       </ul>
-    </div>  
+    </div>
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
-            
+
   <h1>Source code for Minesweeper.Graphics.Window</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pygame</span> <span class="k">import</span> <span class="n">font</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">init</span>
 <span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Color</span>
@@ -68,7 +68,7 @@
 
 <span class="sd">			*self.HEIGHT*: const, window height </span>
 
-<span class="sd">			*self.RESET_WIDTH*: const, width of reset button element</span>
+<span class="sd">			*self.BUTTON_WIDTH*: const, width of reset button element</span>
 
 <span class="sd">			*self.TIMER_WIDTH*: const, width of timer text</span>
 
@@ -90,52 +90,69 @@
 
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">=</span> <span class="n">x_dim</span>
+        <span class="n">        init</span><span class="p">()</span>
+        <span class="bp">        self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">=</span> <span class="n">x_dim</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span> <span class="o">=</span> <span class="n">y_dim</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">=</span> <span class="mi">32</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">        self</span><span class="o">.</span><span class="n">HEADER_BAR</span> <span class="o">=</span> <span class="mi">70</span>
+        <span class="bp">        self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">=</span> <span class="mi">8</span>
 
-		<span class="k">if</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">70</span> <span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span> <span class="o">=</span> <span class="mi">70</span>
+		<span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim + 2 * </span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="p">)</span> <span class="o">&lt;</span> <span class="mi">550</span> <span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">550</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim + 2 *</span>  <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="p">)</span> <span class="o">&lt;</span> <span class="mi">550</span> <span class="p">:</span>
+
+        <span class="bp">        self</span><span class="o">.</span><span class="n">HEIGHT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span>
+        <span class="bp">        self</span><span class="o">.</span><span class="n">_screen</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">))</span>
+        <span class="n">        display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;BitSweeper&quot;</span><span class="p">)</span>
+
 
 		<span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">300</span> <span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">300</span>
-		<span class="k">else</span><span class="p">:</span> 
+		<span class="k">else</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span>
 
-		<span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">TIMER_WIDTH</span> <span class="o">=</span> <span class="mi">150</span>
+        <!--  Dimensions buttons -->
+        <span class="c1">        # Dimensions buttons</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">BUTTON_WIDTH</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+        <!--  # Dimensions timer and flag counter -->
+        <span class="c1">        # Timer buttons</span>
+        <span class="bp">        self</span><span class="o">.</span><span class="n">TIMER_WIDTH</span> <span class="o">=</span> <span class="mi">150</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span> <span class="o">=</span> <span class="mi">20</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_WIDTH</span> <span class="o">=</span> <span class="mi">150</span>
 
-		<span class="n">init</span><span class="p">()</span>
-
-		<span class="bp">self</span><span class="o">.</span><span class="n">_screen</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">))</span>
-		<span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;BitSweeper&quot;</span><span class="p">)</span>
-
-		<span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-		<span class="k">else</span> <span class="p">:</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span>
-
+        <!--  # Game Screen (grid) -->
+        <span class="c1">        # Game Screen (grid)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_gameScreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
 				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="p">)</span>
 			<span class="p">)</span>
+
+        <!--  	# Reset button -->
+        <span class="c1">        # Reset button </span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_reset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
-				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">)</span>
+				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BUTTON_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">)</span>
 			<span class="p">)</span>
+
+        <!--  	# Timer and flag counter -->
+        <span class="c1">        # Timer and flag counter </span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
-				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIMER_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">)</span>
+				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">BUTTON_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIMER_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">)</span>
 			<span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_flagCounter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
-				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">)</span>
+				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">BUTTON_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">)</span>
 			<span class="p">)</span>
-		
 		<span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;light grey&#39;</span><span class="p">))</span>
+
+        <!--  	# Cheat Mode button-->
+        <span class="c1">        # Cheat Mode button </span>
+        <span class="bp">        self</span><span class="o">.</span><span class="n">CHEATMODE_WIDTH</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">        self</span><span class="o">.</span><span class="n">_reset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
+                <span class="n">        Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">BUTTON_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p"> <span class="o">+</span>  <span class="bp">self</span><span class="o">.</span><span class="n">TIMER_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span>,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHEATMODE_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">        )</span>
+            <span class="p">)</span>
+
 
 		<span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
 
@@ -157,13 +174,26 @@
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">pos</span>
 		<span class="n">x_game</span><span class="p">,</span> <span class="n">y_game</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">))</span>
-		<span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x_game</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y_game</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> 
-			<span class="n">x_min</span><span class="p">,</span><span class="n">y_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="o">.</span><span class="n">get_abs_offset</span><span class="p">()</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x_game</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y_game</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <!--  	# Reset button -->
+            <span class="c1">        # Reset button </span>
+            <span class="k">        if</span> <span class="p"> (self.MARGIN<=x< <span class="bp">self</span> .BUTTON_WIDTH and self.MARGIN<=y< <span class="bp">self</span> .HEADER_BAR-self.MARGIN ): </span>
+            <span class="n">            x_min</span><span class="p">,</span><span class="n">y_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="o">.</span><span class="n">get_abs_offset</span><span class="p">()</span>
 			<span class="n">x_reset_size</span><span class="p">,</span> <span class="n">y_reset_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
-			<span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">+</span> <span class="n">x_reset_size</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">+</span> <span class="n">y_reset_size</span><span class="p">)</span> 
-			<span class="k">if</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_max</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_min</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">y_max</span><span class="p">):</span>
-				<span class="k">return</span> <span class="n">event</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
-			<span class="k">return</span> <span class="kc">None</span>
+			<span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">+</span> <span class="n">x_reset_size</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">+</span> <span class="n">y_reset_size</span><span class="p">)</span>
+                <span class="k">                if</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_max</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_min</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">y_max</span><span class="p">):</span>
+        			<span class="k">        return</span> <span class="n">event</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+        		<span class="k">        return</span> <span class="kc">None</span>
+
+            <!--  	# cheat mode button -->
+            <span class="c1">        # cheat mode button </span>
+            <span class="k">        else:</span>
+			<span class="n">x_min</span><span class="p">,</span><span class="n">y_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="o">.</span><span class="n">get_abs_offset</span><span class="p">()</span>
+			<span class="n">x_CheatMode_size</span><span class="p">,</span> <span class="n">y_cheatMode_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cheatMode</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+			<span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">+</span> <span class="n">x_cheatMode_size</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">+</span> <span class="n">y_cheatMode_size</span><span class="p">)</span>
+                <span class="k">                if</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_max</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_min</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">y_max</span><span class="p">):</span>
+        			<span class="k">        return</span> <span class="n">event</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">})</span>
+        		<span class="k">        return</span> <span class="kc">None</span>
 		<span class="k">return</span> <span class="n">event</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x_game</span><span class="p">,</span> <span class="n">y_game</span><span class="p">),</span> <span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">button</span><span class="p">})</span></div></div>
 </pre></div>
 
@@ -196,7 +226,7 @@
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
