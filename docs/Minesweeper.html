@@ -327,6 +327,23 @@ The win state is passed in at construction time via the gameWon boolean paramete
 <p class="last"><em>img</em>: dictionary of images of squares in various states</p>
 </dd>
 </dl>
+
+<dl class="method">
+<dt id="Minesweeper.Minesweeper.Minesweeper.cheatFlags">
+<code class="descname">cheatFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minesweeper.html#Minesweeper.cheatFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minesweeper.Minesweeper.getTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies the spaces with mines and surrounding mines and renders them by calling renderSpace</p>
+<dl class="docutils">
+<dt><strong>Args</strong>:</dt>
+<dd>None.</dd>
+<dt><strong>Preconditions</strong>:</dt>
+<dd>cheatMode is accessed</dd>
+<dt><strong>Postconditions</strong>:</dt>
+<dd>mines and surrounding spaces are rendered</dd>
+<dt><strong>Returns</strong>:</dt>
+<dd>None.</dd>
+</dl>
+</dd></dl>
+
 <dl class="method">
 <dt id="Minesweeper.Minesweeper.Minesweeper.getTime">
 <code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minesweeper.html#Minesweeper.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minesweeper.Minesweeper.getTime" title="Permalink to this definition">¶</a></dt>
@@ -392,6 +409,22 @@ The win state is passed in at construction time via the gameWon boolean paramete
 </dd></dl>
 
 <dl class="method">
+<dt id="Minesweeper.Minesweeper.Minesweeper.renderCheatMode">
+<code class="descname">renderCheatMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minesweeper.html#Minesweeper.renderCheatMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minesweeper.Minesweeper.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the CheatMode button on top of the minefield</p>
+<dl class="docutils">
+<dt><strong>Args</strong>:</dt>
+<dd>None.</dd>
+<dt><strong>Preconditions</strong>:</dt>
+<dd>CheatMode is accessed</dd>
+<dt><strong>Postconditions</strong>:</dt>
+<dd>CheatMode button is rendered</dd>
+<dt><strong>Returns</strong>:</dt>
+<dd>None.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="Minesweeper.Minesweeper.Minesweeper.renderReset">
 <code class="descname">renderReset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minesweeper.html#Minesweeper.renderReset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minesweeper.Minesweeper.renderReset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the reset button</p>
@@ -451,6 +484,23 @@ The win state is passed in at construction time via the gameWon boolean paramete
 <dd>Space is not revealed, self.flagCounter &gt; 0</dd>
 <dt><strong>Postconditions</strong>:</dt>
 <dd>space.isFlagged is toggled</dd>
+<dt><strong>Returns</strong>:</dt>
+<dd>None.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.Minesweeper.Minesweeper.undoCheatFlags">
+<code class="descname">undoCheatFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minesweeper.html#Minesweeper.undoCheatFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minesweeper.Minesweeper.updateClock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies the spaces with mines and surrounding mines changed by the Cheat Mode
+and renders them to the original by calling renderSpace</p>
+<dl class="docutils">
+<dt><strong>Args</strong>:</dt>
+<dd>None.</dd>
+<dt><strong>Preconditions</strong>:</dt>
+<dd>cheatmode is exited</dd>
+<dt><strong>Postconditions</strong>:</dt>
+<dd>mines and surrounding spaces are rendered back to the original</dd>
 <dt><strong>Returns</strong>:</dt>
 <dd>None.</dd>
 </dl>
