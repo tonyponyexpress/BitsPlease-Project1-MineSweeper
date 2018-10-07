@@ -129,7 +129,7 @@
 <span class="sd">		**Postconditions**:</span>
 <span class="sd">				None.</span>
 <span class="sd">		</span>
-<span class="sd">		**Returns**:</span>
+<span class="sd">		**Returns**:</span>Timer element is rerendered
 <span class="sd">				*(gameOver, win)*: tuple of booleans, as named </span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="c1"># Semantic names for possible return values</span>
@@ -329,7 +329,7 @@
 			<span class="n">t_font</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s1">&#39;lucidaconsole&#39;</span><span class="p">,</span> <span class="n">reset_fontsize</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_screen</span><span class="p">,</span> <span class="p">(</span><span class="n">reset_left</span><span class="p">,</span> <span class="n">reset_top</span><span class="p">),</span> <span class="p">(</span><span class="n">reset_x</span><span class="p">,</span> <span class="n">reset_y</span><span class="p">),</span> <span class="p">((</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">),</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">)),</span> <span class="n">reset_text</span><span class="p">,</span> <span class="n">reset_fontsize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Minesweeper.renderSpace"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderSpace">[docs]</a>	<span class="k">def</span> <span class="nf">renderCheatMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Minesweeper.renderCheatMode"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderCheatMode">[docs]</a>	<span class="k">def</span> <span class="nf">renderCheatMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Renders the cheatMode button on top of the minefield</span>
 <span class="sd">		</span>
@@ -352,7 +352,7 @@
                 <span class="n">cheatMode_font</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s1">&#39;lucidaconsole&#39;</span><span class="p">,</span> <span class="n">cheatMode_fontsize</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_screen</span><span class="p">,</span> <span class="p">(</span><span class="n">cheatMode_left</span><span class="p">,</span> <span class="n">cheatMode_top</span><span class="p">),</span> <span class="p">(</span><span class="n">cheatMode_x</span><span class="p">,</span> <span class="n">cheatMode_y</span><span class="p">),</span> <span class="p">((</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">),</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">)),</span> <span class="n">cheatMode_text</span><span class="p">,</span> <span class="n">cheatMode_fontsize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Minesweeper.renderSpace"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderSpace">[docs]</a>	<span class="k">def</span> <span class="nf">cheatFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Minesweeper.cheatFlags"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.cheatFlags">[docs]</a>	<span class="k">def</span> <span class="nf">cheatFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Identifies the spaces with mines and surrounding mines and renders them by calling renderSpace</span>
 <span class="sd">		</span>
@@ -378,7 +378,7 @@
                                         <span class="bp">space</span><span class="o">.</span><span class="n">isCheatFlag</span><span class="o">=</span><span class="n">True</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">renderSpace</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Minesweeper.renderSpace"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.renderSpace">[docs]</a>	<span class="k">def</span> <span class="nf">cheatFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Minesweeper.undoCheatFlags"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minesweeper.Minesweeper.undoCheatFlags">[docs]</a>	<span class="k">def</span> <span class="nf">undoCheatFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Identifies the spaces with mines and surrounding mines changed by the Cheat Mode</span>
 <span class="sd">		and renders them to the original by calling renderSpace</span>
