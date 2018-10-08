@@ -120,8 +120,10 @@ class Minefield:
 					isComplete = False
 		if isComplete:
 			pygame.mixer.stop();
+			winInstr = pygame.mixer.Sound("sounds/winnerInstr.wav")
 			winGame = pygame.mixer.Sound("sounds/WINNER.wav")
 			winGame.play()
+			winInstr.play()
 		return isComplete
 
 	def reveal(self, x, y):
